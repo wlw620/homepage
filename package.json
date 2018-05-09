@@ -1,0 +1,11 @@
+{
+  "name": "homepage",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/wlw620/homepage.git",
+  "author": "毋乐玮 <yuewei.wu@corp.elong.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
