@@ -1,13 +1,10 @@
-var express = require('express');
-var app = express();
+const Koa = require('koa');
+const app = new Koa();
 
-app.get('/', function (req, res) {
-  res.send('Hello RongBaby!');
-});
+const main = ctx => {
+  ctx.response.body = 'Hello World';
+};
 
-var server = app.listen(443, function () {
-  var host = server.address().address;
-  var port = server.address().port;
+app.use(main);
 
-  console.log('Example app listening at http://%s:%s', host, port);
-});
+app.listen(443);

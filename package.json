@@ -6,6 +6,6 @@
   "author": "毋乐玮 <yuewei.wu@corp.elong.com>",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.16.3"
+    "koa": "^2.5.1"
   }
 }
