@@ -7,7 +7,7 @@ const route = require('koa-route');
 const app = new Koa();
 
 const static = serve(path.join(__dirname, '../'));
-console.log(path.join(__dirname, '../'));
+
 const main = ctx => {
   ctx.response.type = 'html';
   ctx.response.body = fs.createReadStream(path.join(__dirname, '../index.html'));
@@ -16,4 +16,4 @@ const main = ctx => {
 app.use(static);
 app.use(route.get('/', main));
 
-app.listen(443);
+app.listen(27017);
