@@ -1,0 +1,16 @@
+const fs = require('fs');
+const path = require('path');
+const Koa = require('koa');
+const serve = require('koa-static');
+const router = require('../routes');
+
+const app = new Koa();
+
+const static = serve(path.join(__dirname, '../'));
+
+// 设置静态资源目录
+app.use(static);
+// 设置router
+app.use(router);
+
+app.listen(1988);
