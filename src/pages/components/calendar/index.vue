@@ -1,16 +1,18 @@
 <template>
-  <div>
-    我是首页
+  <div class="calendar">
+
   </div>
 </template>
+
 <script>
+const monthCount = 6;
+const maxDay = 30;
+
 export default {
   data() {
     return {
-      test: 1
+      calendarList: []
     };
-  },
-  created() {
   }
 };
 </script>

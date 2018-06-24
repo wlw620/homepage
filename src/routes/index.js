@@ -3,14 +3,23 @@ import Router from 'vue-router';
 
 Vue.use(Router);
 
+
 const Home = () =>
-  import ('../pages/home/home.vue');
+  import(/* webpackChunkName: "group_home" */ '../pages/home/home.vue');
 
 const Demo = () =>
-  import ('../pages/demo/demo.vue');
+  import(/* webpackChunkName: "group_demo" */ '../pages/demo/demo.vue');
 
 const WebSocket = () =>
-  import ('../pages/demo/webSocket.vue');
+  import(/* webpackChunkName: "group_webSocket" */ '../pages/demo/webSocket.vue');
+
+const DemoList = () =>
+  import(/* webpackChunkName: "group_component" */ '../pages/demo/list.vue');
+
+const Component = () =>
+  import(/* webpackChunkName: "group_component" */ '../pages/demo/component.vue');
+
+
 
 const routes = [{
   path: '/',
@@ -21,10 +30,20 @@ const routes = [{
 }, {
   path: '/demo',
   component: Demo,
-  children: [{
-    path: 'socket',
-    component: WebSocket
-  }]
+  children: [
+    {
+      path: '/',
+      component: DemoList
+    },
+    {
+      path: 'socket',
+      component: WebSocket
+    },
+    {
+      path: 'component',
+      component: Component
+    }
+  ]
 }];
 
 const router = new Router({

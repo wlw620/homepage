@@ -1,5 +1,5 @@
 <template>
   <div>
-    2
+    我是博客
   </div>
 </template>

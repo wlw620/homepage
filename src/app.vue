@@ -35,6 +35,16 @@
 
 
 <style>
+* {
+  padding: 0;
+  margin: 0;
+}
+
+window,
+html,
+body {
+  min-height: 100%;
+}
 nav {
   height: 44px;
   line-height: 44px;
