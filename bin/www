@@ -14,4 +14,4 @@ app.use(static);
 // 设置router
 app.use(router);
 
-app.listen(1988);
+app.listen(3000);

@@ -5,23 +5,22 @@
   <meta charset=UTF-8>
   <meta name=viewport content="width=device-width,initial-scale=1">
   <meta http-equiv=X-UA-Compatible content="ie=edge">
-  <title>Document</title>
+  <title>pwa</title>
 </head>
 
 <body>
-  <div id=app></div>
+
   <script>
 
     if (navigator.serviceWorker) {
       // 注册
       navigator.serviceWorker.register('/sw.js').then(reg => {
         console.log('reg events at scope::: ' + reg.scope);
-      }).catch(function (error) {
-        console.log("Failedegister ServiceWorker", error);
       });
     }
 
   </script>
-<script type=text/javascript src=/dist/app.js></script></body>
+  <script src="./pwa/index.js"></script>
+</body>
 
 </html>
