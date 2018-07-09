@@ -1,6 +1,6 @@
 <template>
   <div>
-    HELLO, {{text}}, {{text1}}
+    HELLO23, {{text}}, {{text1}}
   </div>
 </template>
 <script>

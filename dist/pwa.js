@@ -78,7 +78,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("if (navigator.serviceWorker) {\n  // 注册\n  navigator.serviceWorker.register('/sw.js').then(reg => {\n    console.log('reg events at scope::: ' + reg.scope);\n  }).catch(function (error) {\n    console.log(\"Failedegister ServiceWorker\", error);\n  });\n}\n\n\n//# sourceURL=webpack:///./pwa/index.js?");
+eval("if (navigator.serviceWorker) {\n\n  // 注册\n  navigator.serviceWorker.register('/sw.js')\n    .then(registration => {\n\n      // 注册成功\n      console.log('ServiceWorker registration successful with scope: ', registration.scope);\n\n\n      let serviceWorker;\n\n      if (registration.installing) {\n\n        serviceWorker = registration.installing;\n      }\n      else if (registration.waiting) {\n\n        serviceWorker = registration.waiting;\n      }\n      else if (registration.active) {\n\n        serviceWorker = registration.active;\n      }\n\n      if (serviceWorker) {\n        serviceWorker.addEventListener('statechange', (e) => {\n          console.log('ServiceWorker statechange: ' + e.target.state);\n        });\n      }\n\n    })\n    .catch(function (err) {\n\n      // 注册失败\n      console.log('ServiceWorker registration failed: ', err);\n    });\n}\n\n\n//# sourceURL=webpack:///./pwa/index.js?");
 
 /***/ })
 
