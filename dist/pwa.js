@@ -62,7 +62,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "https://wlw620.github.io/homepage/dist/";
+/******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/
 /******/ 	// Load entry module and return exports
@@ -78,7 +78,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("if (navigator.serviceWorker) {\n  // 注册\n  navigator.serviceWorker.register('/homepage/sw.js').then(reg => {\n    console.log('reg events at scope::: ' + reg.scope);\n  }).catch(function (error) {\n    console.log(\"Failedegister ServiceWorker\", error);\n  });\n}\n\n\n//# sourceURL=webpack:///./pwa/index.js?");
+eval("if (navigator.serviceWorker) {\n  // 注册\n  navigator.serviceWorker.register('/sw.js').then(reg => {\n    console.log('reg events at scope::: ' + reg.scope);\n  }).catch(function (error) {\n    console.log(\"Failedegister ServiceWorker\", error);\n  });\n}\n\n\n//# sourceURL=webpack:///./pwa/index.js?");
 
 /***/ })
 

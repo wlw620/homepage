@@ -12,7 +12,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     // filename: '[name]_[chunkhash].js',
     filename: '[name].js',
-    publicPath: 'https://wlw620.github.io/homepage/dist/'
+    publicPath: '/dist/'
   },
   module: {
     rules: [{

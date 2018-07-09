@@ -1,13 +1,13 @@
-const VERSION = '12.0.0';
+const VERSION = '13.0';
 const HOST_NAME = location.host;
 const isCORSRequest = function (url, host) {
   return url.search(host) === -1;
 };
+
 /**
  * self 等同global window
  * caches 全局对象
  */
-
 self.addEventListener('install', (e) => {
   // waitUntil 保证了在传入的Promise执行完之后才完成安装
   e.waitUntil(
@@ -24,17 +24,17 @@ self.addEventListener('install', (e) => {
 // sw.js
 // 监听activate事件，激活后通过cache的key来判断是否更新cache中的静态资源
 self.addEventListener('activate', (e) => {
+  console.log(2222222);
   e.waitUntil(
-    caches.keys().then(function (keys) {
+    caches.keys().then((keys) => {
       return Promise.all(keys.map((key) => {
-        console.error(key);
-        // if (key !== cacheName) {
-        //   return caches.delete(key);
-        // }
+        if (key !== "cacheName") {
+          return caches.delete(key);
+        }
       }));
     })
   );
-  // return self.clients.claim();
+  return self.clients.claim();
 });
 
 

@@ -1,8 +1,15 @@
 const Koa = require('koa');
 const router = require('koa-router')();
 const cors = require('koa2-cors');
+const serve = require('koa-static');
+const path = require('path');
+
+const static = serve(path.join(__dirname, '../'));
 
 const app = new Koa();
+
+// 设置静态资源目录
+app.use(static);
 
 router.get('/api/mockData', async (ctx, next) => {
   ctx.response.type = 'json';
