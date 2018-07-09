@@ -78,7 +78,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("if (navigator.serviceWorker) {\n  // 注册\n  navigator.serviceWorker.register('https://wlw620.github.io/homepage/sw.js').then(reg => {\n    console.log('reg events at scope::: ' + reg.scope);\n  }).catch(function (error) {\n    console.log(\"Failedegister ServiceWorker\", error);\n  });\n}\n\n\n//# sourceURL=webpack:///./pwa/index.js?");
+eval("if (navigator.serviceWorker) {\n  // 注册\n  navigator.serviceWorker.register('/homepage/sw.js').then(reg => {\n    console.log('reg events at scope::: ' + reg.scope);\n  }).catch(function (error) {\n    console.log(\"Failedegister ServiceWorker\", error);\n  });\n}\n\n\n//# sourceURL=webpack:///./pwa/index.js?");
 
 /***/ })
 
