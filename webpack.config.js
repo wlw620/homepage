@@ -5,7 +5,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
-    app: './src/app.js'
+    app: './src/app.js',
+    pwa: './pwa/index.js'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),

@@ -7,21 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
 </head>
-
 <body>
   <div id="app"></div>
-  <script>
-
-    if (navigator.serviceWorker) {
-      // 注册
-      navigator.serviceWorker.register('/sw.js').then(reg => {
-        console.log('reg events at scope::: ' + reg.scope);
-      }).catch(function (error) {
-        console.log("Failedegister ServiceWorker", error);
-      });
-    }
-
-  </script>
+  <script src="https://m.elongstatic.com/h5static/hotelfx/2018.7.10/calendar.js"></script>
 </body>
-
 </html>

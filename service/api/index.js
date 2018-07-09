@@ -7,7 +7,7 @@ const app = new Koa();
 router.get('/api/mockData', async (ctx, next) => {
   ctx.response.type = 'json';
   ctx.response.body = {
-    text: '111PWA ！！！'
+    text: 'PWA:4000 ！！！'
   }
 });
 
