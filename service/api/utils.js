@@ -1,3 +1,10 @@
+const path = require('path');
+const nedb = require('nedb');
+const db = new nedb({
+  filename: path.resolve(__dirname, '../../data/save.db'),
+  autoload: true
+});
+
 module.exports = {
   save(obj) {
     let {
@@ -5,36 +12,12 @@ module.exports = {
       subscription
     } = obj;
 
-    return new Promise((r, j) => {
-      db.findOne({
-        'subscription.endpoint': subscription.endpoint
-      }, (err, res) => {
-        if (err) {
-          j(err);
-          return;
-        }
-        if (res) {
-          console.log('已存在');
-          res.uniqueid = uniqueid;
-          db.update({
-            subscription
-          }, res, {}, err => {
-            if (err) {
-              j(err);
-              return;
-            }
-            r(obj);
-          });
-          return;
-        }
-        db.insert(obj, (err, item) => {
-          if (err) {
-            j(err);
-            return;
-          }
-          console.log('存储完毕');
-          r(obj);
-        });
+    return new Promise((resolve, reject) => {
+      db.insert(obj, (err) => {
+        if (err) reject(err);
+
+        console.log('存储完毕');
+        resolve(obj);
       });
     });
   }

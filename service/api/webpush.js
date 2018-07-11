@@ -1,25 +1,22 @@
-const path = require('path');
 const Koa = require('koa');
 const serve = require('koa-static');
 const cors = require('koa2-cors');
 const koaBody = require('koa-body');
 const Router = require('koa-router');
-const nedb = require('nedb');
 const utils = require('./utils');
 const webpush = require('web-push');
 const app = new Koa();
 const router = new Router();
-const db = new nedb({
-  filename: path.resolve(__dirname, '../../data/save.db'),
-  autoload: true
-});
+
 
 /**
  * 提交subscription信息，并保存
  */
 router.post('/subscription', koaBody(), async ctx => {
   let body = ctx.request.body;
-  body = JSON.parse(body);
+  if (typeof body === 'string') {
+    body = JSON.parse(body);
+  }
   await utils.save(body);
   ctx.response.type = 'json';
   ctx.response.body = {
@@ -28,9 +25,9 @@ router.post('/subscription', koaBody(), async ctx => {
 
 
   // 插入单项
-  db.insert({
-    name: 'tom'
-  }, (err, ret) => {});
+  // db.insert({
+  //   name: 'tom'
+  // }, (err, ret) => {});
 });
 
 /**
