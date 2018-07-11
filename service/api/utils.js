@@ -13,12 +13,40 @@ module.exports = {
     } = obj;
 
     return new Promise((resolve, reject) => {
-      db.insert(obj, (err) => {
-        if (err) reject(err);
 
-        console.log('存储完毕');
-        resolve(obj);
+      db.findOne({
+        'subscription.endpoint': subscription.endpoint
+      }, (err, res) => {
+
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        if (res) {
+          console.log('已存在');
+          res.uniqueid = uniqueid;
+          db.update({
+            subscription
+          }, res, {}, err => {
+            if (err) {
+              reject(err);
+              return;
+            }
+            resolve(obj);
+          });
+          return;
+        }
+
+        db.insert(obj, (err) => {
+          if (err) reject(err);
+          console.log('存储完毕');
+          resolve(obj);
+        });
+
       });
+
     });
+
   }
 }
