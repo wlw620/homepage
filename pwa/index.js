@@ -1,38 +1,35 @@
-if (navigator.serviceWorker) {
+import register from './register';
+import subscribeUserToPush from './push';
+import sendSubscriptionToServer from './send';
 
+if (window.navigator.serviceWorker) {
   // 注册
-  navigator.serviceWorker.register('/sw.js')
-    .then(registration => {
+  register('/sw.js').then(registration => {
+    // 注册成功
+    console.log("serviceWorker register success:" + registration.scope);
+  }).catch((err) => {
+    // 注册失败
+    console.log('ServiceWorker registration failed: ', err);
+  });
+}
 
-      // 注册成功
-      console.log('ServiceWorker registration successful with scope: ', registration.scope);
+if (window.PushManager) {
+  navigator.serviceWorker.ready.then((registration) => {
+    // 订阅推送
+    subscribeUserToPush(registration).then((subscription) => {
+      console.log('pushManager success');
+      let body = {
+        subscription: subscription,
+        uniqueid: new Date().getTime()
+      };
+      console.log('uniqueid', body.uniqueid);
 
-
-      let serviceWorker;
-
-      if (registration.installing) {
-
-        serviceWorker = registration.installing;
-      }
-      else if (registration.waiting) {
-
-        serviceWorker = registration.waiting;
-      }
-      else if (registration.active) {
-
-        serviceWorker = registration.active;
-      }
-
-      if (serviceWorker) {
-        serviceWorker.addEventListener('statechange', (e) => {
-          console.log('ServiceWorker statechange: ' + e.target.state);
-        });
-      }
-
-    })
-    .catch(function (err) {
-
-      // 注册失败
-      console.log('ServiceWorker registration failed: ', err);
+      // 将生成的客户端订阅信息存储在自己的服务器上
+      sendSubscriptionToServer(JSON.stringify(body)).then(res => {
+        return res.json();
+      }).then(data => {
+        console.log("sendSubscriptionToServer: " + data.status);
+      });
     });
+  });
 }

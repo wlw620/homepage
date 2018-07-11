@@ -13,14 +13,14 @@
             <span class="nav-item">BLOG</span>
           </router-link>
         </li>
-        <li>
+        <!-- <li>
           <router-link to="/github">
             <span class="nav-item">GITHUB</span>
           </router-link>
-        </li>
+        </li> -->
         <li>
           <router-link to="/demo">
-            <span class="nav-item">Demo</span>
+            <span class="nav-item">DEMO</span>
           </router-link>
         </li>
       </ul>
@@ -46,9 +46,14 @@ body {
   min-height: 100%;
 }
 nav {
+  position: fixed;
   height: 44px;
   line-height: 44px;
   display: flex;
+  background: #de3e2f;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.4);
+  width: 100%;
+  color: #fff;
 }
 nav ul {
   padding: 0;
@@ -64,6 +69,11 @@ nav li {
 }
 nav a {
   text-decoration: none;
+  color:#fff;
+}
+
+.content {
+  padding-top: 54px;
 }
 </style>
 
