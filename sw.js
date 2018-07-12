@@ -1,4 +1,4 @@
-const VERSION = '8.0.0';
+const VERSION = '10.0.0.0';
 const HOST_NAME = location.host;
 const isCORSRequest = (url) => {
   return url.search(HOST_NAME) === -1;
@@ -48,6 +48,25 @@ self.addEventListener('activate', (e) => {
 });
 
 
+self.addEventListener('sync', (e) => {
+  console.log(`service worker需要进行后台同步，tag: ${e.tag}`);
+
+  if (e.tag === 'sync') {
+    let request = new Request('http://localhost:4000/api/sync', {
+      mode: 'cors',
+      method: 'GET'
+    });
+
+    e.waitUntil(
+      fetch(request).then((response) => {
+        response.json().then(console.log.bind(console));
+        return response;
+      })
+    );
+  }
+});
+
+
 
 self.addEventListener('fetch', (e) => {
   let req = null;
@@ -73,26 +92,16 @@ self.addEventListener('fetch', (e) => {
   }
 });
 
+self.addEventListener('notificationclick', (e) => {
+  console.log(2222222);
+});
 
 self.addEventListener('push', (e) => {
-  console.log("message");
-  // var title = 'Yay a message.';
-  // var body = 'We have received a push message.';
-  // var icon = '/images/icon-192x192.png';
-  // var tag = 'simple-push-demo-notification-tag';
-  // var data = {
-  //   doge: {
-  //     wow: 'such amaze notification data'
-  //   }
-  // };
-  // e.waitUntil(
-  //   self.registration.showNotification(title, {
-  //     body: body,
-  //     icon: icon,
-  //     tag: tag,
-  //     data: data
-  //   })
-  // );
+  console.log(111111);
+
+  e.waitUntil(
+    self.registration.showNotification("PUSH")
+  );
 });
 
 

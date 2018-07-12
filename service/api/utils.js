@@ -6,6 +6,45 @@ const db = new nedb({
 });
 
 module.exports = {
+
+  findAll() {
+    return new Promise((resolve, reject) => {
+      db.find({}, (err, list) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(list);
+        }
+      });
+    });
+  },
+
+  find(query) {
+    return new Promise((resolve, reject) => {
+      db.find(query, (err, list) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(list);
+        }
+      });
+    });
+  },
+
+  remove(obj) {
+    return new Promise((resolve, reject) => {
+      db.remove(obj, {
+        multi: true
+      }, (err, num) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(num);
+      });
+    });
+  },
+
   save(obj) {
     let {
       uniqueid,
@@ -22,7 +61,6 @@ module.exports = {
           reject(err);
           return;
         }
-
         if (res) {
           console.log('已存在');
           res.uniqueid = uniqueid;
@@ -37,16 +75,12 @@ module.exports = {
           });
           return;
         }
-
         db.insert(obj, (err) => {
           if (err) reject(err);
           console.log('存储完毕');
           resolve(obj);
         });
-
       });
-
     });
-
   }
 }

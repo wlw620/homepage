@@ -1,12 +1,29 @@
 const Koa = require('koa');
-const serve = require('koa-static');
 const cors = require('koa2-cors');
 const koaBody = require('koa-body');
 const Router = require('koa-router');
 const utils = require('./utils');
 const webpush = require('web-push');
+
 const app = new Koa();
 const router = new Router();
+
+// 设置gcm公钥 私钥
+// const vapidKeys = {
+//   publicKey: 'BJJIa2qCgMj5_FouPxvYp0aSdDRSjpfXMKKvDxJVBJQG8Biau_30iTL8Y7u7T1IzFCy3A7niEZNcJQp9E4tz39k',
+//   privateKey: 'aU0wSsEdVwaKW9R02ggbtzs3ThQFDVmQIpPu5HmtKfY'
+// };
+const vapidKeys = webpush.generateVAPIDKeys();
+
+// 设置网络 API 密钥
+webpush.setGCMAPIKey('AIzaSyCH4COGm1uomdIoF8pmcOS1UQhsYygCQYQ');
+console.log(vapidKeys.publicKey);
+// 配置密钥及联系邮箱
+webpush.setVapidDetails(
+  'mailto:wlw620@outlook.com',
+  vapidKeys.publicKey,
+  vapidKeys.privateKey
+);
 
 
 /**
@@ -22,32 +39,43 @@ router.post('/subscription', koaBody(), async ctx => {
   ctx.response.body = {
     status: 0
   };
-
-
-  // 插入单项
-  // db.insert({
-  //   name: 'tom'
-  // }, (err, ret) => {});
 });
 
 /**
  * 提交subscription信息，并保存
  */
-router.get('/push', async (ctx, next) => {
-  let list = await find();
+router.post('/push', koaBody(), async ctx => {
+  let body = typeof ctx.request.body === 'string' ?
+    JSON.parse(ctx.request.body) : ctx.request.body;
+  let {
+    uniqueid,
+    payload
+  } = body;
 
-  pushMessage(body);
+  let list = uniqueid ? await utils.find({
+    uniqueid
+  }) : await utils.findAll();
+
+  let status = list.length > 0 ? 0 : -1;
+
+  for (let i = 0; i < list.length; i++) {
+    let subscription = list[i].subscription;
+    pushMessage(subscription, JSON.stringify(payload));
+  }
+
+  ctx.response.body = {
+    status
+  };
+
 });
 
 
 /**
  * 向push service推送信息
- * @param {*} subscription
- * @param {*} data
  */
-function pushMessage(subscription, data = {}) {
+function pushMessage(subscription, data = '默认文字') {
   webpush.sendNotification(subscription, data).then(data => {
-    console.log('push service的相应数据:', JSON.stringify(data));
+    console.log('push service的相应数据');
     return;
   }).catch(err => {
     // 判断状态码，440和410表示失效
@@ -61,7 +89,9 @@ function pushMessage(subscription, data = {}) {
 }
 
 
-// 允许跨域
+/**
+ * 设置跨域
+ */
 app.use(cors({
   origin: '*',
   exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
@@ -71,7 +101,7 @@ app.use(cors({
   allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
 }));
 
-// 设置router
+
 app.use(router.routes());
 
 app.listen(5000);

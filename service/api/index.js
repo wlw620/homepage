@@ -10,6 +10,13 @@ const app = new Koa();
 // 设置静态资源目录
 app.use(static);
 
+router.get('/api/sync', async (ctx, next) => {
+  ctx.response.type = 'json';
+  ctx.response.body = {
+    msg: 'sync 成功!!!'
+  };
+});
+
 router.get('/api/mockData', async (ctx, next) => {
   let data = {};
   await axios.get('https://xapi.elong.com/list/getlistdata/?indate=2018-07-10&outdate=2018-07-11&city=1640&usercityid=1640&pageindex=1')

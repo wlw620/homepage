@@ -1,36 +1,35 @@
 {
-  "gcm_sender_id": "1043700601979",
   "name": "PWA Demo",
   "start_url": "/",
   "background_color": "#333",
   "description": "Elong Progressive Web App",
   "theme_color": "#5eace0",
   "icons": [{
-    "src": "./pwa_icon.jpg",
+    "src": "./pwa/pwa_icon.jpg",
     "sizes": "32x32",
     "type": "image/png"
   }, {
-    "src": "./pwa_icon.jpg",
+    "src": "./pwa/pwa_icon.jpg",
     "sizes": "72x72",
     "type": "image/jpg"
   }, {
-    "src": "./pwa_icon.jpg",
+    "src": "./pwa/pwa_icon.jpg",
     "sizes": "128x128",
     "type": "image/jpg"
   }, {
-    "src": "./pwa_icon.jpg",
+    "src": "./pwa/pwa_icon.jpg",
     "sizes": "144x144",
     "type": "image/png"
   }, {
-    "src": "./pwa_icon.jpg",
+    "src": "./pwa/pwa_icon.jpg",
     "sizes": "192x192",
     "type": "image/jpg"
   }, {
-    "src": "./pwa_icon.jpg",
+    "src": "./pwa/pwa_icon.jpg",
     "sizes": "256x256",
     "type": "image/jpg"
   }, {
-    "src": "./pwa_icon.jpg",
+    "src": "./pwa/pwa_icon.jpg",
     "sizes": "512x512",
     "type": "image/jpg"
   }]
