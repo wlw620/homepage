@@ -20,7 +20,7 @@ webpush.setGCMAPIKey('AIzaSyCH4COGm1uomdIoF8pmcOS1UQhsYygCQYQ');
 console.log(vapidKeys.publicKey);
 // 配置密钥及联系邮箱
 webpush.setVapidDetails(
-  'mailto:wlw620@outlook.com',
+  'https://serviceworke.rs/',
   vapidKeys.publicKey,
   vapidKeys.privateKey
 );
@@ -45,26 +45,39 @@ router.post('/subscription', koaBody(), async ctx => {
  * 提交subscription信息，并保存
  */
 router.post('/push', koaBody(), async ctx => {
+
   let body = typeof ctx.request.body === 'string' ?
     JSON.parse(ctx.request.body) : ctx.request.body;
   let {
-    uniqueid,
-    payload
+    uniqueid
   } = body;
-
   let list = uniqueid ? await utils.find({
     uniqueid
   }) : await utils.findAll();
 
-  let status = list.length > 0 ? 0 : -1;
+  let subscription;
 
   for (let i = 0; i < list.length; i++) {
-    let subscription = list[i].subscription;
-    pushMessage(subscription, JSON.stringify(payload));
+    subscription = list[i].subscription;
   }
 
+  let options = {
+    TTL: 5
+  };
+
+  setTimeout(() => {
+    webpush.sendNotification(subscription, null, options)
+      .then(() => {
+        status = '201';
+      })
+      .catch(function (error) {
+        status = '500';
+      });
+  }, 2000);
+
+  ctx.response.type = 'json';
   ctx.response.body = {
-    status
+    status: '200'
   };
 
 });

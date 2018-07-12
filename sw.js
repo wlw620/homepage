@@ -21,7 +21,8 @@ self.addEventListener('install', (e) => {
   e.waitUntil(
     caches.open(VERSION).then(cache => {
       return cache.addAll([
-
+        'http://localhost:3000/dist/group_demo.js',
+        'http://localhost:3000/dist/group_component.js'
       ]);
     })
   );

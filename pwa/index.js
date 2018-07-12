@@ -52,18 +52,26 @@ if (window.PushManager) {
 
   navigator.serviceWorker.ready.then((registration) => {
 
-    subscribeUserToPush(registration)
-      .then((subscription) => {
-        console.log('subscription success', registration);
-        return {
+    return registration.pushManager.getSubscription()
+      .then(async (subscription) => {
+
+        // 防止重复注册
+        if (subscription) {
+          return subscription;
+        }
+
+        // 注册 subscribe
+        return subscribeUserToPush(registration);
+
+      }).then((subscription) => {
+        console.log('subscription success', subscription);
+        let body = {
           subscription: subscription,
           uniqueid: new Date().getTime()
         };
-      })
-
-      .then(body => {
         console.log('uniqueid', body.uniqueid);
 
+        // 存储到后端
         sendSubscriptionToServer(JSON.stringify(body))
           .then(res => {
             return res.json();
@@ -71,9 +79,7 @@ if (window.PushManager) {
           .then(data => {
             console.log("sendSubscriptionToServer: " + data.status);
           });
-      })
-      .catch(err => {
-        console.log('subscription err', err);
+
       });
 
   });

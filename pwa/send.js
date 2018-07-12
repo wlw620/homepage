@@ -1,7 +1,9 @@
 export default (body) => {
-  let request = new Request('http://localhost:5000/subscription', {
+  return fetch('http://localhost:5000/subscription', {
     method: 'POST',
+    headers: {
+      'Content-type': 'application/json'
+    },
     body: body
   });
-  return fetch(request);
 }
